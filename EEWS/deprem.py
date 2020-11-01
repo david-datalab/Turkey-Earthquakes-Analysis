@@ -16,7 +16,7 @@ def watchEQ():
             try:
                 html = urllib.request.urlopen(url, context=ctx).read()
             except:
-                print("network error")
+                print("!!! NETWORK ERROR !!!")
 
             soup = BeautifulSoup(html, 'html.parser')
             #retrive raw data
@@ -56,6 +56,6 @@ def watchEQ():
             print("\n")
             time.sleep(60)
     except:
-        print("Restarting.....")
+        print("!!! RESTARTING !!!")
         watchEQ()
 watchEQ()
