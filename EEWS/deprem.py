@@ -11,6 +11,7 @@ ctx.verify_mode = ssl.CERT_NONE
 def watchEQ():
     try:
         print("Monitoring started ....\n")
+
         while True:
             url = ('http://www.koeri.boun.edu.tr/scripts/lst9.asp')
             try:
@@ -27,18 +28,16 @@ def watchEQ():
             for tag in tags:
                 # Look at the parts of a tag
                 fh = tag
-                #print(fh)
+
                 for line in fh:#to extract valuse and put them in a list
-                    #print(line)
                     data = line
-                    #print(data)
                     ln = re.findall("(\S.*)", data)
-                    #print(ln)
+
                     for s in ln: #to loop through the strings found in ln
                         if s not in lst:#UPDATE: the headache was here XD #to add the string value in a single list
                             lst.append(s)
+
             lastEQ = lst[6].split()
-            #print(lastEQ)
             results = {"date" : lastEQ[0],
             "time" : lastEQ[1],
             "latit" : lastEQ[2],
@@ -46,6 +45,7 @@ def watchEQ():
             "depth" : lastEQ[4],
             "magnitude" : lastEQ[5:8],
             "region" : lastEQ[8:-1]}
+
             print("Date :", results["date"])
             print("Time :", results["time"])
             print("Latitude :", results["latit"])
@@ -54,8 +54,12 @@ def watchEQ():
             print("Magnitude :", results["magnitude"])
             print("Region :", results["region"])
             print("\n")
+
             time.sleep(60)
     except:
+
         print("!!! RESTARTING !!!")
+
         watchEQ()
+
 watchEQ()
