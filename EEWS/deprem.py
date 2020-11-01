@@ -58,7 +58,7 @@ def watchEQ():
             print("Region :", results["region"])
             print("\n")
 
-            time.sleep(1)
+            time.sleep(30)
     except:
 
         print("!!! RESTARTING !!!")
