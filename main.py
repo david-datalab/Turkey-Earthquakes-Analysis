@@ -76,7 +76,7 @@ while True:
     #to fill the records in the database
     try:
         #first we start to write the data to the database
-        cur.execute('''INSERT OR IGNORE INTO earthQuake (date, time, latitiude, longitude, depth, magnitude, region)
+        cur.execute('''INSERT OR IGNORE INTO EarthQuake (date, time, latitiude, longitude, depth, magnitude, region)
         VALUES (?,?,?,?,?,?,?)''',(date, time, latitiude, longitude, depth, magnitude, region))
     
     except Exception as E4:
@@ -89,12 +89,12 @@ while True:
         formated = "{},{},{},{},{},{},{}\n".format(lstResults[0], lstResults[1], lstResults[2], lstResults[3], lstResults[4] ,lstResults[5], lstResults[6])
     
         #we look for the longitude and compare it with recorded results
-        cur.execute('SELECT longitude FROM earthQuake ORDER BY id DESC')
+        cur.execute('SELECT longitude FROM EarthQuake ORDER BY id DESC')
         lon = cur.fetchone()
         slon = str(lon[0])
 
         #we look for the latitude and compare it with recorded results
-        cur.execute('SELECT latitiude FROM earthQuake ORDER BY id DESC')
+        cur.execute('SELECT latitiude FROM EarthQuake ORDER BY id DESC')
         lat = cur.fetchone()
         slat = str(lat[0])
         #we compare the values and print the last record to avoid printing new lines for each execution
