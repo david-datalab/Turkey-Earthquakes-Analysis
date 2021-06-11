@@ -71,6 +71,7 @@ while True:
     magnitude = lastEQ[6]
     region = " ".join(lastEQ[8:-1])
     lstResults = [date,time,latitiude,longitude,depth,magnitude,region]
+    #this line is to check to compare the results
     cur.execute('SELECT id FROM EarthQuake ORDER BY id DESC LIMIT 1')
     IdRecent = cur.fetchone()
 
@@ -95,23 +96,6 @@ while True:
         IdNew = result[0]
         if IdNew > IdRecent[0]:
             print(result)
-        
-        #first we divide the data as strings 
-        #formated = "{},{},{},{},{},{},{}\n".format(lstResults[0], lstResults[1], lstResults[2], lstResults[3], lstResults[4] ,lstResults[5], lstResults[6])
-    
-        #we look for the longitude and compare it with recorded results
-        #cur.execute('SELECT longitude FROM EarthQuake ORDER BY id DESC')
-        #lon = cur.fetchone()
-        #slon = str(lon[0])
-
-        #we look for the latitude and compare it with recorded results
-        #cur.execute('SELECT latitiude FROM EarthQuake ORDER BY id DESC')
-        #lat = cur.fetchone()
-        #slat = str(lat[0])
-        #we compare the values and print the last record to avoid printing new lines for each execution
-
-        #if slon != longitude and slat != latitiude:
-        #    print(formated)
 
     except Exception as E5:
         print('E5: Data checking error')
