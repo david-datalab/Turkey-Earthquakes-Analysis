@@ -71,9 +71,14 @@ while True:
     magnitude = lastEQ[6]
     region = " ".join(lastEQ[8:-1])
     lstResults = [date,time,latitiude,longitude,depth,magnitude,region]
+    cur.execute('SELECT id FROM EarthQuake ORDER BY id DESC LIMIT 1')
+    IdRecent = cur.fetchone()
+
+
     #now we have a list of the data needed for the analysis
     #we will add the data to sqlite data base to proceed with the analysis
     #to fill the records in the database
+    
     try:
         #first we start to write the data to the database
         cur.execute('''INSERT OR IGNORE INTO EarthQuake (date, time, latitiude, longitude, depth, magnitude, region)
@@ -82,25 +87,31 @@ while True:
     except Exception as E4:
         print('E4: Database writing error')
         print(E4)
-
+    
+    #to check the results
     try:
-        #to check the results
+        cur.execute('SELECT * FROM EarthQuake ORDER BY id DESC LIMIT 1')
+        result = cur.fetchone()
+        IdNew = result[0]
+        if IdNew > IdRecent[0]:
+            print(result)
+        
         #first we divide the data as strings 
-        formated = "{},{},{},{},{},{},{}\n".format(lstResults[0], lstResults[1], lstResults[2], lstResults[3], lstResults[4] ,lstResults[5], lstResults[6])
+        #formated = "{},{},{},{},{},{},{}\n".format(lstResults[0], lstResults[1], lstResults[2], lstResults[3], lstResults[4] ,lstResults[5], lstResults[6])
     
         #we look for the longitude and compare it with recorded results
-        cur.execute('SELECT longitude FROM EarthQuake ORDER BY id DESC')
-        lon = cur.fetchone()
-        slon = str(lon[0])
+        #cur.execute('SELECT longitude FROM EarthQuake ORDER BY id DESC')
+        #lon = cur.fetchone()
+        #slon = str(lon[0])
 
         #we look for the latitude and compare it with recorded results
-        cur.execute('SELECT latitiude FROM EarthQuake ORDER BY id DESC')
-        lat = cur.fetchone()
-        slat = str(lat[0])
+        #cur.execute('SELECT latitiude FROM EarthQuake ORDER BY id DESC')
+        #lat = cur.fetchone()
+        #slat = str(lat[0])
         #we compare the values and print the last record to avoid printing new lines for each execution
 
-        if slon != longitude and slat != latitiude:
-            print(formated)
+        #if slon != longitude and slat != latitiude:
+        #    print(formated)
 
     except Exception as E5:
         print('E5: Data checking error')
