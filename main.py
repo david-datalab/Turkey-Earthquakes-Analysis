@@ -15,12 +15,12 @@ try:
     cur.executescript('''
     CREATE TABLE IF NOT EXISTS EarthQuake (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-    date TEXT,
-    time TEXT UNIQUE,
+    date DATE,
+    time TIME,
     latitiude TEXT,
     longitude TEXT,
     depth TEXT,
-    magnitude TEXT,
+    magnitude INTEGER,
     region TEXT
     )
     ''')
