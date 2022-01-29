@@ -1,3 +1,20 @@
+#Turkey Earthquakes Analysis
+#Copyright (C) <2021-2022>  <Muhannad Daoud>
+
+#This program is free software: you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation, either version 3 of the License, or
+#(at your option) any later version.
+
+#This program is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+
+#You should have received a copy of the GNU General Public License
+#along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#Email: daoudmhnd@gmail.com
+
 import requests
 from bs4 import BeautifulSoup
 import re
@@ -79,16 +96,16 @@ while True:
     #now we have a list of the data needed for the analysis
     #we will add the data to sqlite data base to proceed with the analysis
     #to fill the records in the database
-    
+
     try:
         #first we start to write the data to the database
         cur.execute('''INSERT OR IGNORE INTO EarthQuake (date, time, latitiude, longitude, depth, magnitude, region)
         VALUES (?,?,?,?,?,?,?)''',(date, time, latitiude, longitude, depth, magnitude, region))
-    
+
     except Exception as E4:
         print('E4: Database writing error')
         print(E4)
-    
+
     #to check the results
     try:
         cur.execute('SELECT * FROM EarthQuake ORDER BY id DESC LIMIT 1')
